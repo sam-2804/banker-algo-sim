@@ -24,4 +24,16 @@ class bankerAlgo():
         
         self.available = [3,3,2]
     
+
+ 
+    def calculate_need(self):
+        
+        for process in range(len(self.max)):
+            for resource in range(len(self.max[process])):
+                self.need[process][resource] = self.max[process][resource]-self.allocated[process][resource]
+    
+        print(self.need)
+
+obj1 = bankerAlgo()
+obj1.calculate_need()
    
