@@ -34,6 +34,29 @@ class bankerAlgo():
     
         print(self.need)
 
+            
+    def simulate_execution(self):
+        
+        for proc_idx in range(len(self.need)):
+            allocation_safe = True
+            
+            for res_idx in range(len(self.need[proc_idx])):
+                if self.need[proc_idx][res_idx] > self.available[res_idx]:                        
+                    allocation_safe = False
+                    print(f"Process {proc_idx} is not safe")
+                    print("Allocation is not safe, Requested resource is greater than available resource")
+                    break
+                    
+                else:    
+                    continue
+            
+            if allocation_safe:
+                print(f"process {proc_idx} is safe")
+                
+            else:
+                # WIP : Add the block of code that will allocate resources and free it up 
+                continue
+                
 obj1 = bankerAlgo()
 obj1.calculate_need()
-   
+obj1.simulate_execution()
