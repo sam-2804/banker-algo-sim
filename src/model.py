@@ -62,18 +62,30 @@ class bankerAlgo():
     
     def simulate_execution(self):
         
-        for proc_idx in range(len(self.need)):
-            if self.is_safe(proc_idx):
-    
-                print(f"{proc_idx} is safe")
-                print(self.available)
-                self.release_resources(proc_idx)
-                
-                print(f"Releasing resources of process {proc_idx} is completed")                      
-                print(self.available)    
+        process_completion = [False] * len(self.max)
+        
+        while not all(process_completion):
+            progress_made = False
+            
+            for proc_idx in range(len(self.need)):
+                if process_completion[proc_idx]:
+                    continue
+                if not process_completion[proc_idx] and self.is_safe(proc_idx): 
+                    self.release_resources(proc_idx)
+                    process_completion[proc_idx] = True
+                    progress_made = True
+                    
+                else:
+                    print(f"process {proc_idx} is not safe")
+            
+            if progress_made:
+                continue
             else:
-                print(f"{proc_idx} is not safe")
-
+                print("Deadlock detected")
+                break
+                
+        if all(process_completion):
+            print("System is safe")
 
 obj1 = bankerAlgo()
 obj1.calculate_need()
