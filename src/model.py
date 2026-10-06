@@ -42,15 +42,12 @@ class bankerAlgo():
         for res_idx in range(len(self.need[proc_idx])):
             if self.need[proc_idx][res_idx] > self.available[res_idx]:                        
                 allocation_safe = False
-                #print(f"Process {proc_idx} is not safe")
-                #print("Allocation is not safe, Requested resource is greater than available resource")
                 break
                 
             else:    
                 continue
         
         if allocation_safe:
-            #print(f"process {proc_idx} is safe")
             return True
         
         else:
@@ -58,11 +55,26 @@ class bankerAlgo():
                 
         
     def release_resources(self,proccess_idx):
-        print("Available matrix Before releasing resources ",self.available)
+        
         for resources_idx in range(len(self.allocated[proccess_idx])):
             self.available[resources_idx] = self.available[resources_idx] + self.allocated[proccess_idx][resources_idx]
-        print("Available matrix After releasing resources ",self.available)
+        
+    
+    def simulate_execution(self):
+        
+        for proc_idx in range(len(self.need)):
+            if self.is_safe(proc_idx):
+    
+                print(f"{proc_idx} is safe")
+                print(self.available)
+                self.release_resources(proc_idx)
+                
+                print(f"Releasing resources of process {proc_idx} is completed")                      
+                print(self.available)    
+            else:
+                print(f"{proc_idx} is not safe")
+
 
 obj1 = bankerAlgo()
 obj1.calculate_need()
-obj1.release_resources(1)   
+obj1.simulate_execution()
